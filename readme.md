@@ -1,4 +1,4 @@
-# Skuishy
+# Skuishy (now owned by Fusezion)
 
 ![Downloads](https://img.shields.io/github/downloads/aabssmc/Skuishy/total) ![Versions](https://img.shields.io/github/v/release/aabssmc/Skuishy) ![Size](https://img.shields.io/github/repo-size/aabssmc/Skuishy) [![Java CI with Gradle](https://github.com/aabssmc/Skuishy/actions/workflows/gradle.yml/badge.svg)](https://github.com/aabssmc/Skuishy/actions/workflows/gradle.yml)
 
