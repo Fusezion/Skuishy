@@ -1,65 +1,61 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id "java"
-    id "com.github.johnrengelman.shadow" version "8.1.1"
+	id "java"
+	id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
-version = "2.9"
+version = "2.9.0"
+
+java {
+	toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
 
 repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {url = "https://repo.papermc.io/repository/maven-public/"}
-    maven {url = "https://repo.skriptlang.org/releases"}
-    maven {url = "https://jitpack.io"}
-    maven {url = "https://repo.inventivetalent.org/repository/public/"}
+	mavenCentral()
+	maven { url = "https://repo.papermc.io/repository/maven-public/" }
+	maven { url = "https://repo.skriptlang.org/releases" }
+	maven { url = "https://jitpack.io" }
+	maven { url = "https://repo.inventivetalent.org/repository/public/" }
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT"
-    implementation "net.kyori:adventure-text-minimessage:4.15.0"
-    compileOnly ("com.github.SkriptLang:Skript:2.9.4") {
-        transitive = false
-    }
-    compileOnly "com.github.decentsoftware-eu:decentholograms:2.8.8"
-    compileOnly files("libs/VulcanAPI.jar")
-    implementation "com.github.SkriptLang:skript-reflect:2.4-dev1"
-    implementation "org.mineskin:java-client:3.0.1-SNAPSHOT"
-    implementation "org.mineskin:java-client-java11:3.0.1-SNAPSHOT"
+	compileOnly(files("libs/VulcanAPI.jar"))
+	compileOnly(group: "io.papermc.paper", name: "paper-api", version: "1.21.3-R0.1-SNAPSHOT")
+	compileOnly(group: "com.github.SkriptLang", name: "Skript", version: "2.9.4") { transitive = false }
+	compileOnly(group: "com.github.decentsoftware-eu", name: "decentholograms", version: "2.8.8")
+
+	implementation(group: "org.bstats", name: "bstats-bukkit", version: "3.0.2")
+	implementation(group: "org.mineskin", name: "java-client", version: "3.0.1-SNAPSHOT")
+	implementation(group: "org.mineskin", name: "java-client-java11", version: "3.0.1-SNAPSHOT")
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+build {
+	dependsOn(shadowJar)
+	tasks.withType(JavaCompile).tap {
+		configureEach {
+			options.compilerArgs.add("-Xlint:unchecked")
+			options.compilerArgs.add("-Xlint:deprecation")
+		}
+	}
 }
 
 shadowJar {
-    dependencies {
-        include(dependency("org.mineskin:java-client:3.0.1-SNAPSHOT"))
-        include(dependency("org.mineskin:java-client-java11:3.0.1-SNAPSHOT"))
-    }
+	archiveFileName = project.name + "-" + project.version + ".jar"
+	relocate("org.bstats", "lol.aabss.skuishy.api.metrics")
+	dependencies {
+		include(dependency("org.mineskin:java-client:3.0.1-SNAPSHOT"))
+		include(dependency("org.mineskin:java-client-java11:3.0.1-SNAPSHOT"))
+	}
 }
 
 def oldestJava = 17
 tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ['-source', '' + oldestJava, '-target', '' + oldestJava]
+	options.compilerArgs += ['-source', '' + oldestJava, '-target', '' + oldestJava]
 }
 
 processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset "UTF-8"
-    filesMatching("plugin.yml") {
-        expand props
-    }
-    filesMatching("lang/default.lang") {
-        expand props
-    }
-    from ("lang") {
-        include "**/*"
-        into "lang/"
-    }
-    filesNotMatching("**/*.png") {
-        filter ReplaceTokens, tokens: ["version": project.version]
-    }
+	filesNotMatching("**/*.png") {
+		filter ReplaceTokens, tokens: ["version": project.version]
+	}
 }
