@@ -6,7 +6,19 @@ import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import lol.aabss.skuishy.other.EnumWrapper;
 import lol.aabss.skuishy.other.RegistryClassInfo;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Axolotl;
+import org.bukkit.entity.Boat;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Fox;
+import org.bukkit.entity.Frog;
+import org.bukkit.entity.Horse;
+import org.bukkit.entity.Llama;
+import org.bukkit.entity.MushroomCow;
+import org.bukkit.entity.Parrot;
+import org.bukkit.entity.Rabbit;
+import org.bukkit.entity.Sniffer;
+import org.bukkit.entity.TropicalFish;
+import org.bukkit.entity.Warden;
 
 public class Types {
     static {
@@ -15,7 +27,8 @@ public class Types {
                     .user("axolotl ?variants?")
                     .name("Axolotl Variant")
                     .description("Represents a axolotl variant.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("AxolotlVariant"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Rabbit") && Classes.getExactClassInfo(Rabbit.Type.class) == null) {
@@ -31,7 +44,8 @@ public class Types {
                     .user("llama ?variants?")
                     .name("Llama Variant")
                     .description("Represents a llama variant.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("TypeLlamaColor"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Fox") && Classes.getExactClassInfo(Fox.Type.class) == null) {
@@ -73,7 +87,8 @@ public class Types {
                     .user("frog ?variants?")
                     .name("Frog Variant")
                     .description("Represents a variant of a frog.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("TypeFrogVariant"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Horse") && Classes.getExactClassInfo(Horse.Color.class) == null) {
@@ -81,7 +96,8 @@ public class Types {
                     .user("horse ?colors?")
                     .name("Horse Color")
                     .description("Represents a color of a horse.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("TypeHorseColor"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Horse") && Classes.getExactClassInfo(Horse.Style.class) == null) {
@@ -97,7 +113,8 @@ public class Types {
                     .user("mushroom ?cow ?variants?")
                     .name("Mushroom Cow Variant")
                     .description("Represents a variant of a mushroom cow.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("TypeMushroomCowVariant"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Parrot") && Classes.getExactClassInfo(Parrot.Variant.class) == null) {
@@ -105,7 +122,8 @@ public class Types {
                     .user("parrot ?variants?")
                     .name("Parrot Variant")
                     .description("Represents a variant of a parrot.")
-                    .since("2.8"));
+                    .since("2.8")
+                    .documentationId("TypeParrotVariant"));
         }
 
         if (Skript.classExists("org.bukkit.entity.Sniffer") && Classes.getExactClassInfo(Sniffer.State.class) == null) {

@@ -42,7 +42,8 @@ public class Types {
                     .user("skin ?models?")
                     .name("Skin - Skin Model")
                     .description("Represents a skin model.")
-                    .since("2.6"));
+                    .since("2.6")
+                    .documentationId("TypeSkinVariant"));
         }
         if (Classes.getClassInfoNoError("blueprintpart") == null) {
             Classes.registerClass(new EnumWrapper<>(Blueprint.Part.class).getClassInfo("blueprintpart")
