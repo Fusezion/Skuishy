@@ -1,8 +1,31 @@
 package lol.aabss.skuishy.other;
 
+import ch.njol.skript.util.Color;
+import ch.njol.skript.util.ColorRGB;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import lol.aabss.skuishy.Skuishy;
+import org.jetbrains.annotations.NotNull;
+import org.mineskin.data.Variant;
+
+import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.util.Scanner;
+
+import static lol.aabss.skuishy.Skuishy.last_blueprint;
+
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Blueprint {
-/*
+
     private BufferedImage image = null;
     private @NotNull Variant model = Variant.AUTO;
     public static JsonObject json;
@@ -239,7 +262,5 @@ public class Blueprint {
     public static Variant getVariant(BufferedImage image){
         return new java.awt.Color(image.getRGB(39, 52)).getAlpha() == 255 ? Variant.SLIM : Variant.CLASSIC;
     }
-
- */
 
 }
