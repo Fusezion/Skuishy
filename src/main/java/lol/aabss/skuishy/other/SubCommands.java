@@ -2,7 +2,6 @@ package lol.aabss.skuishy.other;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
-import ch.njol.skript.util.Version;
 import lol.aabss.skuishy.Skuishy;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -11,17 +10,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-import static lol.aabss.skuishy.Skuishy.element_map;
-import static lol.aabss.skuishy.Skuishy.instance;
-import static lol.aabss.skuishy.Skuishy.latest_version;
-import static lol.aabss.skuishy.Skuishy.latest_version_object;
-import static lol.aabss.skuishy.Skuishy.plugin_version;
+import static lol.aabss.skuishy.Skuishy.*;
 import static lol.aabss.skuishy.other.GetVersion.latestSkriptVersion;
 import static lol.aabss.skuishy.other.GetVersion.latestVersion;
 import static lol.aabss.skuishy.other.UpdateChecker.updateCheck;
@@ -201,18 +192,15 @@ public class SubCommands {
             return;
         }
         String v = latestVersion();
-        assert v != null;
-        Version ver = new Version(v);
-        if (plugin_version.compareTo(ver) >= 0){
+        if (v.equals(instance.getDescription().getVersion())){
             sender.sendMessage(miniMessage().deserialize("<color:#00ff00>You are up to date!"));
         } else{
             latest_version = v;
-            latest_version_object = ver;
             updateCheck(sender);
         }
     }
 
     public static void cmdVersion(CommandSender sender){
-        sender.sendMessage(miniMessage().deserialize("<color:#00ff00>This server is running Skuishy v" + instance.getDescription().getVersion() + " by aabss (or Fusezion)!"));
+        sender.sendMessage(miniMessage().deserialize("<color:#00ff00>This server is running Skuishy v" + instance.getDescription().getVersion() + " by aabss!"));
     }
 }
