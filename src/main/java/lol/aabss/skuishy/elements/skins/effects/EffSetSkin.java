@@ -7,7 +7,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.UnparsedLiteral;
 import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mineskin.data.TextureInfo;
+import org.mineskin.data.Texture;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -56,26 +56,8 @@ public class EffSetSkin extends Effect {
 
     private Expression<Player> player;
     private Expression<Object> skin;
-    private Expression<String> value, signature;
-
-    @Override
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-        if (matchedPattern == 0 || matchedPattern == 1) {
-            player = (Expression<Player>) exprs[0];
-            skin = (Expression<Object>) exprs[1];
-            if (skin instanceof UnparsedLiteral) {
-                skin = LiteralUtils.defendExpression(skin);
-            }
-        } else {
-            player = (Expression<Player>) exprs[0];
-            value = (Expression<String>) exprs[1];
-            signature = (Expression<String>) exprs[2];
-        }
-        if (skin != null) {
-            return LiteralUtils.canInitSafely(skin);
-        }
-        return true;
-    }
+    private Expression<String> value;
+    private Expression<String> signature;
 
     @Override
     protected void execute(@NotNull Event event) {
@@ -129,21 +111,39 @@ public class EffSetSkin extends Effect {
         }
     }
 
+    private java.util.function.BiConsumer<? super Texture, ? super Throwable> getWhenComplete(Event event){
+        return (BiConsumer<Texture, Throwable>) (texture, throwable) -> {
+            if (throwable == null) {
+                for (Player p : player.getArray(event)) {
+                    setSkin(p, texture);
+                }
+            } else {
+                Skuishy.Logger.exception(throwable);
+            }
+        };
+    }
+
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
         return "set skin of player";
     }
 
-    private java.util.function.BiConsumer<? super TextureInfo, ? super Throwable> getWhenComplete(Event event){
-        return (BiConsumer<TextureInfo, Throwable>) (texture, throwable) -> {
-            if (throwable != null) {
-                Skuishy.Logger.exception(throwable);
-                return;
+    @Override
+    public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
+        if (matchedPattern == 0 || matchedPattern == 1) {
+            player = (Expression<Player>) exprs[0];
+            skin = (Expression<Object>) exprs[1];
+            if (skin instanceof UnparsedLiteral) {
+                skin = LiteralUtils.defendExpression(skin);
             }
-            for (Player p : player.getArray(event)) {
-                setSkin(p, texture.data());
-            }
-        };
+        } else {
+            player = (Expression<Player>) exprs[0];
+            value = (Expression<String>) exprs[1];
+            signature = (Expression<String>) exprs[2];
+        }
+        if (skin != null) {
+            return LiteralUtils.canInitSafely(skin);
+        }
+        return true;
     }
-
 }
