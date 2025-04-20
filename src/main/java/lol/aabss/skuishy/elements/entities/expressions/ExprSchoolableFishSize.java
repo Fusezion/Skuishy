@@ -12,7 +12,7 @@ import lol.aabss.skuishy.other.skript.EntityExpression;
 @Examples({
         "send max school size of {_fish}"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprSchoolableFishSize extends EntityExpression<SchoolableFish, Integer> {
 
     static {

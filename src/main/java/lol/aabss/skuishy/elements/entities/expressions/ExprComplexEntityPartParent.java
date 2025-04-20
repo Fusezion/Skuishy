@@ -13,7 +13,7 @@ import org.bukkit.entity.LivingEntity;
 @Examples({
         "set {_parent} to complex parent of {_child::1}"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprComplexEntityPartParent extends EntityExpression<ComplexEntityPart, LivingEntity> {
 
     static {

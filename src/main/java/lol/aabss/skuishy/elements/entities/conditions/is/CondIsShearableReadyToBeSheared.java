@@ -13,7 +13,7 @@ import lol.aabss.skuishy.other.skript.EntityCondition;
         "if {_shearable} is ready to be sheared:",
         "\tshear {_shearable}"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class CondIsShearableReadyToBeSheared extends EntityCondition<Shearable> {
 
     static {

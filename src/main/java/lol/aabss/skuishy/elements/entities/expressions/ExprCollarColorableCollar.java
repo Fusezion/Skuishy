@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 @Examples({
         "set collar color of {_cat} to purple"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprCollarColorableCollar extends EntityExpression<CollarColorable, Color> {
 
     static {

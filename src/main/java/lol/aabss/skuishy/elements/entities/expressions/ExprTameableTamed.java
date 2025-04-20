@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Examples({
         "set tamed state of {_cat} to true"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprTameableTamed extends EntityExpression<Tameable, Boolean> {
 
     static {

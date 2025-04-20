@@ -22,7 +22,7 @@ import java.util.List;
 @Examples({
         "set {_child::*} to complex parts of {_parent}"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprComplexLivingEntityParts extends PropertyExpression<Entity, Entity> {
 
     static {

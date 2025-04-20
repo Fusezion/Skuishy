@@ -13,7 +13,7 @@ import org.bukkit.entity.Entity;
 @Examples({
         "send school leader of {_fish}"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class ExprSchoolableFishLeader extends EntityExpression<SchoolableFish, Entity> {
 
     static {

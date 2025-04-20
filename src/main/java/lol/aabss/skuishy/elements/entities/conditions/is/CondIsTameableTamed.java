@@ -13,7 +13,7 @@ import org.bukkit.entity.Tameable;
         "if {_wolf} is tamed:",
         "\tset tamed state of {_wolf} to false"
 })
-@Since("2.8.1")
+@Since("2.9")
 public class CondIsTameableTamed extends EntityCondition<Tameable> {
 
     static {
