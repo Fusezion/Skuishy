@@ -6,11 +6,7 @@ import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import io.papermc.paper.datapack.Datapack;
-import io.papermc.paper.registry.RegistryAccess;
-import io.papermc.paper.registry.RegistryKey;
-import lol.aabss.skuishy.Skuishy;
 import lol.aabss.skuishy.other.EnumWrapper;
-import lol.aabss.skuishy.other.RegistryClassInfo;
 import org.bukkit.Art;
 import org.bukkit.Rotation;
 import org.bukkit.Statistic;
@@ -81,29 +77,12 @@ public class Types {
         }
 
         if (Skript.classExists("org.bukkit.Art") && Classes.getExactClassInfo(Art.class) == null) {
-            ClassInfo<?> art_class_info = null;
-            if (Skript.classExists("io.papermc.paper.registry.RegistryKey") && Skript.fieldExists(RegistryKey.class, "PAINTING_VARIANT")) {
-                RegistryAccess registryAccess = RegistryAccess.registryAccess();
-                art_class_info = RegistryClassInfo.create(registryAccess.getRegistry(RegistryKey.PAINTING_VARIANT), Art.class, "");
-            } else if (Art.class.isEnum()) {
-                try {
-                    Class<?> art_class = Class.forName("org.bukkit.Art");
-                    // noinspection unchecked,rawtypes
-                    Class<? extends Enum> art_class_enum = (Class<? extends Enum>) art_class;
-                    // noinspection unchecked,rawtypes
-                    art_class_info = new EnumWrapper<>(art_class_enum).getClassInfo("art");
-                } catch (ClassNotFoundException exception) {
-                    Skuishy.Logger.exception(exception);
-                }
-            }
-            if (art_class_info != null) {
-                Classes.registerClass(art_class_info
-                        .user("arts?")
-                        .name("Art")
-                        .description("Represents a piece of art.")
-                        .since("2.8")
-                );
-            }
+            Classes.registerClass(new EnumWrapper<>(Art.class).getClassInfo("art")
+                    .user("arts?")
+                    .name("Art")
+                    .description("Represents a piece of art.")
+                    .since("2.8")
+            );
         }
 
         if (Skript.classExists("org.bukkit.Rotation") && Classes.getExactClassInfo(Rotation.class) == null) {
