@@ -14,6 +14,7 @@ repositories {
     maven {url = "https://repo.papermc.io/repository/maven-public/"}
     maven {url = "https://repo.skriptlang.org/releases"}
     maven {url = "https://jitpack.io"}
+    maven {url = "https://repo.inventivetalent.org/repository/public/"}
 }
 
 dependencies {
@@ -24,7 +25,9 @@ dependencies {
     }
     compileOnly "com.github.decentsoftware-eu:decentholograms:2.8.8"
     compileOnly files("libs/VulcanAPI.jar")
-    implementation("com.github.SkriptLang:skript-reflect:2.4-dev1")
+    implementation "com.github.SkriptLang:skript-reflect:2.4-dev1"
+    implementation "org.mineskin:java-client:3.0.1-SNAPSHOT"
+    implementation "org.mineskin:java-client-java11:3.0.1-SNAPSHOT"
 }
 
 java {
@@ -42,7 +45,11 @@ build {
 }
 
 shadowJar {
-    archiveClassifier = ""
+    archiveFileName = project.name + "-" + project.version + ".jar"
+    dependencies {
+        include(dependency("org.mineskin:java-client:3.0.1-SNAPSHOT"))
+        include(dependency("org.mineskin:java-client-java11:3.0.1-SNAPSHOT"))
+    }
 }
 
 def oldestJava = 17
