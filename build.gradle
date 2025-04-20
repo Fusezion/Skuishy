@@ -34,18 +34,7 @@ java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
-build {
-    dependsOn(shadowJar)
-    tasks.withType(JavaCompile).tap {
-        configureEach {
-            options.compilerArgs.add("-Xlint:unchecked")
-            options.compilerArgs.add("-Xlint:deprecation")
-        }
-    }
-}
-
 shadowJar {
-    archiveFileName = project.name + "-" + project.version + ".jar"
     dependencies {
         include(dependency("org.mineskin:java-client:3.0.1-SNAPSHOT"))
         include(dependency("org.mineskin:java-client-java11:3.0.1-SNAPSHOT"))
