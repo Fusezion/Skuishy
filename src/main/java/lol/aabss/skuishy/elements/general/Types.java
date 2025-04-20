@@ -84,7 +84,7 @@ public class Types {
             ClassInfo<?> art_class_info = null;
             if (Skript.classExists("io.papermc.paper.registry.RegistryKey") && Skript.fieldExists(RegistryKey.class, "PAINTING_VARIANT")) {
                 RegistryAccess registryAccess = RegistryAccess.registryAccess();
-                art_class_info = RegistryClassInfo.create(registryAccess.getRegistry(RegistryKey.PAINTING_VARIANT), Art.class, "art");
+                art_class_info = RegistryClassInfo.create(registryAccess.getRegistry(RegistryKey.PAINTING_VARIANT), Art.class, "");
             } else if (Art.class.isEnum()) {
                 try {
                     Class<?> art_class = Class.forName("org.bukkit.Art");
